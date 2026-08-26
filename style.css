@@ -57,4 +57,17 @@ h1 {
     margin-bottom: 10px;
     background: #f5f5f5;
     border-radius: 6px;
+
+#taskList li button {
+    border: none;
+    background: #e74c3c;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#taskList li button:hover {
+    background: #c0392b;
+}
 }
