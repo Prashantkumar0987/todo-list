@@ -27,6 +27,17 @@ addBtn.addEventListener("click", function () {
         taskSpan.classList.toggle("completed");
     });
 
+    const editBtn = document.createElement("button");
+
+    editBtn.textContent = "Edit";
+
+    editBtn.addEventListener("click", function () {
+        const newTaskText = prompt("Edit your task:", taskSpan.textContent);
+        if (newTaskText !== null && newTaskText.trim() !== "") {
+            taskSpan.textContent = newTaskText;
+        }
+    });
+
     // Create Delete button
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
@@ -39,7 +50,9 @@ addBtn.addEventListener("click", function () {
     // Add everything to li
     li.appendChild(taskSpan);
     li.appendChild(completeBtn);
+    li.appendChild(editBtn);
     li.appendChild(deleteBtn);
+
 
     // Add li to task list
     taskList.appendChild(li);
