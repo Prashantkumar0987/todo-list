@@ -1,6 +1,24 @@
+const totalTasks = document.getElementById("totalTasks");
+const completedTasks = document.getElementById("completedTasks");
+const pendingTasks = document.getElementById("pendingTasks");
 const taskInput = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
+
+function updateTaskStats() {
+    const task = taskList.querySelectorAll("li");
+    const total = task.length;
+    let completed = 0;
+    task.forEach((task) => {
+        if (task.querySelector("span").classList.contains("completed")) {
+            completed++;
+        }
+    });
+    const pending = total - completed;
+    totalTasks.textContent = total;
+    completedTasks.textContent = completed;
+    pendingTasks.textContent = pending;
+}
 
 addBtn.addEventListener("click", function () {
 
@@ -25,6 +43,7 @@ addBtn.addEventListener("click", function () {
     // Complete button functionality
     completeBtn.addEventListener("click", function () {
         taskSpan.classList.toggle("completed");
+        updateTaskStats();
     });
 
     const editBtn = document.createElement("button");
@@ -45,6 +64,7 @@ addBtn.addEventListener("click", function () {
     // Delete button functionality
     deleteBtn.addEventListener("click", function () {
         li.remove();
+        updateTaskStats();
     });
 
     // Add everything to li
@@ -56,7 +76,6 @@ addBtn.addEventListener("click", function () {
 
     // Add li to task list
     taskList.appendChild(li);
-
-    // Clear input
+    updateTaskStats();
     taskInput.value = "";
 });

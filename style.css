@@ -1,3 +1,7 @@
+/* =========================
+   Global Styles
+========================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +10,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f0ece6;
+    background: #f2f2f2;
     min-height: 100vh;
 
     display: flex;
@@ -14,17 +18,50 @@ body {
     align-items: center;
 }
 
+
+/* =========================
+   Main Container
+========================= */
+
 .container {
     width: 450px;
     background: white;
     padding: 30px;
     border-radius: 12px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
     margin-bottom: 20px;
 }
+
+
+/* =========================
+   Task Statistics
+========================= */
+
+.task-stats {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+    padding: 10px;
+
+    background: #f5f5f5;
+    border-radius: 6px;
+}
+
+.task-stats p {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   Input Section
+========================= */
 
 .input-section {
     display: flex;
@@ -33,23 +70,50 @@ h1 {
 
 #taskInput {
     flex: 1;
+
     padding: 12px;
+
     border: 1px solid #ccc;
     border-radius: 6px;
+
+    font-size: 16px;
+    outline: none;
 }
+
+#taskInput:focus {
+    border-color: #333;
+}
+
+
+/* =========================
+   Add Button
+========================= */
 
 #addBtn {
     padding: 12px 18px;
+
     border: none;
     border-radius: 6px;
-    background: #5e2d35;
-    color: rgba(48, 9, 9, 0.817);
+
+    background: #333;
+    color: white;
+
     cursor: pointer;
+    font-size: 15px;
 }
+
+#addBtn:hover {
+    background: #555;
+}
+
+
+/* =========================
+   Task List
+========================= */
 
 #taskList {
     list-style: none;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 #taskList li {
@@ -68,26 +132,74 @@ h1 {
     flex: 1;
 }
 
+
+/* =========================
+   Task Buttons
+========================= */
+
 #taskList li button {
     border: none;
     padding: 7px 12px;
+
     border-radius: 5px;
     cursor: pointer;
 }
 
-#taskList li button:hover {
-    background: #c0392b;
-}
+
+/* Complete Button */
 
 #taskList li button:first-of-type {
     background: green;
     color: white;
 }
+
+
+/* Edit Button */
+
+#taskList li button:nth-of-type(2) {
+    background: #3498db;
+    color: white;
+}
+
+
+/* Delete Button */
+
 #taskList li button:last-of-type {
     background: red;
     color: white;
 }
+
+
+/* =========================
+   Completed Task
+========================= */
+
 .completed {
     text-decoration: line-through;
     opacity: 0.5;
+}
+
+
+/* =========================
+   Mobile Responsive
+========================= */
+
+@media (max-width: 500px) {
+
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .input-section {
+        flex-direction: column;
+    }
+
+    #addBtn {
+        width: 100%;
+    }
+
+    #taskList li {
+        flex-wrap: wrap;
+    }
 }
