@@ -53,15 +53,23 @@ h1 {
 }
 
 #taskList li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
     padding: 12px;
     margin-bottom: 10px;
+
     background: #f5f5f5;
     border-radius: 6px;
+}
+
+#taskList li span {
+    flex: 1;
+}
 
 #taskList li button {
     border: none;
-    background: #e74c3c;
-    color: white;
     padding: 7px 12px;
     border-radius: 5px;
     cursor: pointer;
@@ -70,4 +78,16 @@ h1 {
 #taskList li button:hover {
     background: #c0392b;
 }
+
+#taskList li button:first-of-type {
+    background: green;
+    color: white;
+}
+#taskList li button:last-of-type {
+    background: red;
+    color: white;
+}
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
 }
