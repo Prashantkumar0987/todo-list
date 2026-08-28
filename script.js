@@ -1,4 +1,3 @@
-const themeToggle = document.getElementById("themeToggle");
 const taskInput = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
@@ -7,6 +6,11 @@ const totalTasks = document.getElementById("totalTasks");
 const completedTasks = document.getElementById("completedTasks");
 const pendingTasks = document.getElementById("pendingTasks");
 
+const themeToggle = document.getElementById("themeToggle");
+
+const priorityInput = document.getElementById("priorityInput");
+const dueDateInput = document.getElementById("dueDateInput");
+
 let tasks = [];
 
 function saveTasks() {
@@ -14,16 +18,11 @@ function saveTasks() {
 }
 
 function updateTaskStats() {
-    const taskElements = taskList.querySelectorAll("li");
+    const total = tasks.length;
 
-    const total = taskElements.length;
-    let completed = 0;
-
-    taskElements.forEach(function (task) {
-        if (task.querySelector(".completed")) {
-            completed++;
-        }
-    });
+    const completed = tasks.filter(function (task) {
+        return task.completed;
+    }).length;
 
     const pending = total - completed;
 
@@ -37,6 +36,29 @@ function createTaskElement(task) {
 
     const taskSpan = document.createElement("span");
     taskSpan.textContent = task.text;
+
+    const taskInfo = document.createElement("div");
+    taskInfo.className = "task-info";
+
+    const priorityText = document.createElement("div");
+    priorityText.className = "priority";
+
+    priorityText.textContent =
+        task.priority.charAt(0).toUpperCase() +
+        task.priority.slice(1) +
+        " Priority";
+
+    const dateText = document.createElement("div");
+    dateText.className = "due-date";
+
+    if (task.dueDate) {
+        dateText.textContent = "Due: " + task.dueDate;
+    } else {
+        dateText.textContent = "No due date";
+    }
+
+    taskInfo.appendChild(priorityText);
+    taskInfo.appendChild(dateText);
 
     const completeBtn = document.createElement("button");
     completeBtn.textContent = "Complete";
@@ -71,35 +93,36 @@ function createTaskElement(task) {
     deleteBtn.textContent = "Delete";
 
     deleteBtn.addEventListener("click", function () {
-    li.classList.add("removing");
+        li.classList.add("removing");
 
-    li.addEventListener("animationend", function () {
-        const index = tasks.indexOf(task);
+        li.addEventListener("animationend", function () {
+            const index = tasks.indexOf(task);
 
-        tasks.splice(index, 1);
+            tasks.splice(index, 1);
 
-        saveTasks();
+            saveTasks();
 
-        li.remove();
+            li.remove();
 
-        updateTaskStats();
+            updateTaskStats();
+        });
     });
-});
 
     if (task.completed) {
         taskSpan.classList.add("completed");
     }
 
-   const actions = document.createElement("div");
+    const actions = document.createElement("div");
+    actions.className = "task-actions";
 
-   actions.className = "task-actions";
-
-   actions.appendChild(completeBtn);
-   actions.appendChild(editBtn);
-   actions.appendChild(deleteBtn);
+    actions.appendChild(completeBtn);
+    actions.appendChild(editBtn);
+    actions.appendChild(deleteBtn);
 
     li.appendChild(taskSpan);
+    li.appendChild(taskInfo);
     li.appendChild(actions);
+
     return li;
 }
 
@@ -108,6 +131,7 @@ function renderTasks() {
 
     tasks.forEach(function (task) {
         const li = createTaskElement(task);
+
         taskList.appendChild(li);
     });
 
@@ -116,6 +140,8 @@ function renderTasks() {
 
 addBtn.addEventListener("click", function () {
     const taskText = taskInput.value.trim();
+    const priority = priorityInput.value;
+    const dueDate = dueDateInput.value;
 
     if (taskText === "") {
         alert("Please enter a task");
@@ -124,7 +150,9 @@ addBtn.addEventListener("click", function () {
 
     tasks.push({
         text: taskText,
-        completed: false
+        completed: false,
+        priority: priority,
+        dueDate: dueDate
     });
 
     saveTasks();
@@ -132,23 +160,17 @@ addBtn.addEventListener("click", function () {
     renderTasks();
 
     taskInput.value = "";
+    priorityInput.value = "low";
+    dueDateInput.value = "";
 });
-taskInput.addEventListener("keydown", function (event) {
 
+taskInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         addBtn.click();
     }
-
 });
 
-const savedTasks = localStorage.getItem("tasks");
-
-if (savedTasks) {
-    tasks = JSON.parse(savedTasks);
-    renderTasks();
-}
 themeToggle.addEventListener("click", function () {
-
     document.body.classList.toggle("dark");
 
     if (document.body.classList.contains("dark")) {
@@ -158,11 +180,32 @@ themeToggle.addEventListener("click", function () {
         themeToggle.textContent = "🌙";
         localStorage.setItem("theme", "light");
     }
-
 });
+
+const savedTasks = localStorage.getItem("tasks");
+
+if (savedTasks) {
+    tasks = JSON.parse(savedTasks);
+
+    tasks = tasks.map(function (task) {
+        return {
+            text: task.text,
+            completed: task.completed || false,
+            priority: task.priority || "low",
+            dueDate: task.dueDate || ""
+        };
+    });
+
+    saveTasks();
+    renderTasks();
+}
+
 const savedTheme = localStorage.getItem("theme");
 
 if (savedTheme === "dark") {
     document.body.classList.add("dark");
     themeToggle.textContent = "☀️";
+} else {
+    document.body.classList.remove("dark");
+    themeToggle.textContent = "🌙";
 }
