@@ -1,3 +1,4 @@
+const themeToggle = document.getElementById("themeToggle");
 const taskInput = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
@@ -132,10 +133,36 @@ addBtn.addEventListener("click", function () {
 
     taskInput.value = "";
 });
+taskInput.addEventListener("keydown", function (event) {
+
+    if (event.key === "Enter") {
+        addBtn.click();
+    }
+
+});
 
 const savedTasks = localStorage.getItem("tasks");
 
 if (savedTasks) {
     tasks = JSON.parse(savedTasks);
     renderTasks();
+}
+themeToggle.addEventListener("click", function () {
+
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        themeToggle.textContent = "☀️";
+        localStorage.setItem("theme", "dark");
+    } else {
+        themeToggle.textContent = "🌙";
+        localStorage.setItem("theme", "light");
+    }
+
+});
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+    themeToggle.textContent = "☀️";
 }

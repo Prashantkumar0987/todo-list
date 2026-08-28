@@ -224,3 +224,66 @@ h1 {
 #taskList li span {
     overflow-wrap: anywhere;
 }
+#themeToggle {
+    display: block;
+    margin: 0 auto 20px;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #222;
+    color: white;
+
+    font-size: 20px;
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+#themeToggle:hover {
+    transform: rotate(20deg) scale(1.05);
+}
+
+body.dark {
+    background: #121212;
+}
+
+body.dark .container {
+    background: #1e1e1e;
+}
+
+body.dark h1 {
+    color: white;
+}
+
+body.dark .task-stats p {
+    background: #2a2a2a;
+    color: white;
+}
+
+body.dark #taskInput {
+    background: #2a2a2a;
+    color: white;
+    border-color: #444;
+}
+
+body.dark #taskInput::placeholder {
+    color: #aaa;
+}
+
+body.dark #taskList li {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+body.dark #taskList li span {
+    color: white;
+}
+
+body.dark #themeToggle {
+    background: white;
+    color: #222;
+}
