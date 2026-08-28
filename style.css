@@ -203,3 +203,41 @@ h1 {
         flex-wrap: wrap;
     }
 }
+@media (max-width: 500px) {
+
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .input-section {
+        flex-direction: column;
+    }
+
+    #addBtn {
+        width: 100%;
+    }
+
+    #taskList li {
+        flex-wrap: wrap;
+    }
+}
+@media (max-width: 500px) {
+
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .input-section {
+        flex-direction: column;
+    }
+
+    #addBtn {
+        width: 100%;
+    }
+
+    #taskList li {
+        flex-wrap: wrap;
+    }
+}
