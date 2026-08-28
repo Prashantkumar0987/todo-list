@@ -342,3 +342,6 @@ body.dark #themeToggle {
         flex: 1;
     }
 }
+body.dark .priority {
+    color: white;
+}
