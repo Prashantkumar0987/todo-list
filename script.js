@@ -70,6 +70,9 @@ function createTaskElement(task) {
     deleteBtn.textContent = "Delete";
 
     deleteBtn.addEventListener("click", function () {
+    li.classList.add("removing");
+
+    li.addEventListener("animationend", function () {
         const index = tasks.indexOf(task);
 
         tasks.splice(index, 1);
@@ -80,16 +83,22 @@ function createTaskElement(task) {
 
         updateTaskStats();
     });
+});
 
     if (task.completed) {
         taskSpan.classList.add("completed");
     }
 
-    li.appendChild(taskSpan);
-    li.appendChild(completeBtn);
-    li.appendChild(editBtn);
-    li.appendChild(deleteBtn);
+   const actions = document.createElement("div");
 
+   actions.className = "task-actions";
+
+   actions.appendChild(completeBtn);
+   actions.appendChild(editBtn);
+   actions.appendChild(deleteBtn);
+
+    li.appendChild(taskSpan);
+    li.appendChild(actions);
     return li;
 }
 
